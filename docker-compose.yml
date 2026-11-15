@@ -1,0 +1,28 @@
+# ==============================================================================
+# NetPulse — Multi-PC Universal Docker Compose Configuration
+# Pulls the pre-built image directly from Docker Hub (ilegend44/netpulse:latest).
+# Deploy this exact docker-compose.yml across all your Mini PCs / Servers.
+# ==============================================================================
+
+services:
+  netpulse:
+    image: ${NETPULSE_IMAGE:-ilegend44/netpulse:latest}
+    container_name: netpulse
+    restart: unless-stopped
+    network_mode: "host"   # Host mode enables inspecting real physical network interfaces
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    env_file:
+      - .env
+    environment:
+      # Mode: "hub" on your primary machine, "agent" on all secondary Mini PCs
+      - NODE_MODE=${NODE_MODE:-hub}
+      # Identifying label for this machine
+      - NODE_NAME=${NODE_NAME:-MiniPC-Host}
+      # URL of your central Hub (only needed when NODE_MODE=agent)
+      - HUB_URL=${HUB_URL:-http://127.0.0.1:8990}
+      - PORT=${PORT:-8990}
+      - NETPULSE_AUTH_TOKEN=${NETPULSE_AUTH_TOKEN:-}
+      - HEARTBEAT_INTERVAL=${HEARTBEAT_INTERVAL:-2}
+      - VIRUSTOTAL_API_KEY=${VIRUSTOTAL_API_KEY:-}

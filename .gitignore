@@ -1,0 +1,44 @@
+# ==============================================================================
+# NetPulse .gitignore — Protects Source Code, Secrets & Local State from Exposure
+# ==============================================================================
+
+# 1. Environment Secrets & Local State (NEVER COMMIT)
+.env
+.env.*
+!.env.example
+netpulse_state.json
+*state*.json
+.netpulse_db_path
+*.db
+*.sqlite*
+*.log
+*.pcap
+*.cap
+
+# 2. Python Source Code & Internal Web Assets (Kept Private Locally)
+*.py
+web/
+Dockerfile
+.dockerignore
+requirements.txt
+*.spec
+
+# 3. Build Artifacts, Caches & Duplicate Binaries
+build/
+dist/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.tar
+.DS_Store
+.vscode/
+.idea/
+
+# 4. Explicitly Allow Public Release Deliverables
+!NetPulse_Latest.exe
+!README.md
+!docker-compose.yml
+!.env.example
+!.gitignore
+!netpulse.ico
